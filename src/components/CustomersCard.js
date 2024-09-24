@@ -1,4 +1,5 @@
 import * as React from 'react'
+import classNames from 'classnames'
 
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -14,11 +15,12 @@ const CustomerCard = ({
     name, 
     lastname, 
     email, 
-    avatar
+    avatar,
+    className
 }) => {
   
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card className={className} sx={{ maxWidth: 345, marginTop: 5 }}>
       <CardHeader
         avatar={
           <Avatar src={avatar} aria-label="recipe">

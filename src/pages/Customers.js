@@ -2,9 +2,27 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios'
 
+import {
+    Grid,
+    Paper,
+} from '@mui/material'
 import CustomersCard from '../components/CustomersCard'
 
+
+import { makeStyles, styled } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    card: {
+        padding: theme.spacing(2),
+    }
+}))
+
+
 const Customers = () => {
+    const classes = useStyles()
 
     const [customers, setCustomers] = useState([])
 
@@ -19,20 +37,35 @@ const Customers = () => {
             })
     }, [])
 
+
+    // XS = EXTRA SMALL
+    // SM = SMALL
+    // MD = MEDIUM
+    // LG = LARGE
+    // XL = EXTRA LARGE
+
     return (
         <>
             <h1>Users</h1>
-            {
-                customers.map(item => (
-                    
-                    <CustomersCard 
-                        name={item.first_name}
-                        lastname={item.last_name}
-                        email={item.email}
-                        avatar={item.avatar}
-                    />
-                ))
-            }
+
+            <Grid container>
+                            
+                {   
+                    customers.map(user => (
+                        
+                        <Grid item xs={12} md={6} lg={4}>
+                            <CustomersCard 
+                                name={user.first_name}
+                                lastname={user.last_name}
+                                email={user.email}
+                                avatar={user.avatar}
+                                className={classes.card}
+                                
+                            />
+                        </Grid>
+                    ))
+                }
+            </Grid>
         </>
     )
 }
