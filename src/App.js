@@ -5,6 +5,7 @@ import {
   Route,
 } from 'react-router-dom'
 
+import Customers from "./pages/Customers"
 import Home from "./pages/Home"
 import TemplateDefault from './templates/Default'
 
@@ -14,6 +15,9 @@ const App = () => {
 
       <Router>
         <Switch>
+          <Route path="/customers">
+            <Customers />
+          </Route>
           <Route path="/">
             <Home />
           </Route>
