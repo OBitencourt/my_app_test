@@ -15,11 +15,13 @@ import ModalConfirm from './ModalConfirm'
 
 
 const CustomerCard = ({
+    id,
     name, 
     lastname, 
     email, 
     avatar,
-    className
+    className,
+    onRemoveCustomer
 }) => {
 
   const [open, setOpen] = useState(false)
@@ -28,8 +30,9 @@ const CustomerCard = ({
     setOpen(!open)
   }
 
-  const handleConfirmModal = () => {
-    alert('ok')
+  const handleConfirmModal = (id) => {
+    onRemoveCustomer(id)
+    handleToggleOpen()
   }
 
   return (
@@ -60,7 +63,7 @@ const CustomerCard = ({
     <ModalConfirm 
       open={open} 
       onClose={handleToggleOpen}
-      onConfirm={handleConfirmModal}
+      onConfirm={() => handleConfirmModal(id)}
       title="Deseja realmente excluir o cliente?"
       message="O cliente será excluído do banco de dados."
     />
