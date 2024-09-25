@@ -1,10 +1,15 @@
 
 import axios from 'axios'
 
+import Toasty from '../../components/Toasty'
+
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 import {useState} from 'react'
+
+// import CircularProgress from '@mui/material/CircularProgress';
+
 
 const Register = () => {
 
@@ -29,10 +34,14 @@ const Register = () => {
             },
         })
     }
-
-
+    
+    
+    const [openToasty, setOpenToasty] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleRegisterButton = () => {
+        setIsLoading(true)
+
         let hasError = false
 
         let newFormState = {
@@ -68,8 +77,11 @@ const Register = () => {
             job: form.job.value
         }).then(response => {
             console.log('ok', response)
+            setOpenToasty(true)
+            setIsLoading(false)
         })
     }
+
 
     return (
         <>  
@@ -98,8 +110,20 @@ const Register = () => {
                 /> 
             </div>
             <div>
-                <Button sx={{marginTop: 5}} variant="contained" onClick={handleRegisterButton}>Sign</Button>
+                <Button disabled={isLoading} sx={{marginTop: 5}} variant="contained" onClick={handleRegisterButton}>
+                    {
+                        isLoading ? 'Wait...' : 'Sign'
+                    }
+                </Button>
             </div>
+            <Toasty 
+                open={openToasty} 
+                severity='success' 
+                text="The customer as signed sucessfully!"
+                onClose={() => {
+                    setOpenToasty(false)
+                }}
+            />
         </>
     )
 }
