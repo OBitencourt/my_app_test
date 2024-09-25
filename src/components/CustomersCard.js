@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {useState} from 'react'
 // import classNames from 'classnames'
 
 import Card from '@mui/material/Card'
@@ -7,8 +8,10 @@ import CardActions from '@mui/material/CardActions'
 import Avatar from '@mui/material/Avatar'
 import IconButton from '@mui/material/IconButton'
 
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import ShareIcon from '@mui/icons-material/Share'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+import ModalConfirm from './ModalConfirm'
 
 
 const CustomerCard = ({
@@ -18,8 +21,19 @@ const CustomerCard = ({
     avatar,
     className
 }) => {
-  
+
+  const [open, setOpen] = useState(false)
+
+  const handleToggleOpen = () => {
+    setOpen(!open)
+  }
+
+  const handleConfirmModal = () => {
+    alert('ok')
+  }
+
   return (
+  <>
     <Card className={className} sx={{ maxWidth: 345, marginTop: 5 }}>
       <CardHeader
         avatar={
@@ -33,16 +47,24 @@ const CustomerCard = ({
       />
       
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton sx={{ marginRight: 1}} aria-label="add to favorites">
+          <EditIcon  />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
+        <IconButton onClick={() => handleToggleOpen()} aria-label="share">
+          <DeleteIcon />
         </IconButton>
         
       </CardActions>
     
     </Card>
+    <ModalConfirm 
+      open={open} 
+      onClose={handleToggleOpen}
+      onConfirm={handleConfirmModal}
+      title="Deseja realmente excluir o cliente?"
+      message="O cliente será excluído do banco de dados."
+    />
+  </>
   )
 }
 

@@ -19,7 +19,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import useStyles from './Header.style';
 
 import {
-    useHistory
+    useHistory,
 } from 'react-router-dom'
 
 // JSS
