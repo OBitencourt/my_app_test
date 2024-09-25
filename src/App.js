@@ -5,8 +5,10 @@ import {
   Route,
 } from 'react-router-dom'
 
-import Customers from "./pages/Customers"
+import CustomersList from "./pages/customers/List"
+import CustomerRegister from "./pages/customers/Register"
 import Home from "./pages/Home"
+
 import TemplateDefault from './templates/Default'
 import TemplatePage from './templates/Page'
 
@@ -16,8 +18,11 @@ const App = () => {
     <Router>
         <TemplateDefault>
         <Switch>
+          <Route path="/customers/add">
+            <TemplatePage title="Sign" Component={CustomerRegister} />
+          </Route>
           <Route path="/customers">
-            <TemplatePage title="Customers" Component={Customers} />
+            <TemplatePage title="Customers" Component={CustomersList} />
           </Route>
           <Route path="/">
             <TemplatePage title="Home" Component={Home} />

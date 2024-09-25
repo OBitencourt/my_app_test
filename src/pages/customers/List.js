@@ -6,7 +6,7 @@ import {
     Grid,
     
 } from '@mui/material'
-import CustomersCard from '../components/CustomersCard'
+import CustomersCard from '../../components/CustomersCard'
 
 
 import { makeStyles, } from '@mui/styles';
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-const Customers = () => {
+const List = () => {
     const classes = useStyles()
 
     const [customers, setCustomers] = useState([])
@@ -82,4 +82,4 @@ const Customers = () => {
     )
 }
 
-export default Customers
+export default List
