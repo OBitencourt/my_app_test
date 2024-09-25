@@ -6,13 +6,18 @@ import Toasty from '../../components/Toasty'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+
+import {useParams} from 'react-router-dom'
 
 // import CircularProgress from '@mui/material/CircularProgress';
 
 
-const Register = () => {
+const Edit = () => {
 
+    const { id } = useParams()
+
+    
     const [form, setForm] = useState({
         name: {
             value: '',
@@ -23,6 +28,31 @@ const Register = () => {
             error: false
         }
     })
+    
+    const [openToasty, setOpenToasty] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    
+    useEffect(() => {
+        axios.get(`https://reqres.in/api/users/${id}`)
+            .then(response => {
+                const { data } = response.data
+
+                setForm({
+                    name: {
+                        value: data.first_name,
+                        error: false,
+                    },
+                    job: {
+                        value: data.job,
+                        error: false
+                    }
+                })
+            })
+    }, [])
+
+
+
+
 
     const handleInputChange = (e) => {
         const {name, value} = e.target
@@ -36,8 +66,6 @@ const Register = () => {
     }
     
     
-    const [openToasty, setOpenToasty] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
 
     const handleRegisterButton = () => {
         setIsLoading(true)
@@ -72,7 +100,7 @@ const Register = () => {
            return setForm(newFormState)
         }
 
-        axios.post('https://reqres.in/api/users', {
+        axios.put(`https://reqres.in/api/users/${id}`, {
             name: form.name.value,
             job: form.job.value
         }).then(response => {
@@ -112,14 +140,14 @@ const Register = () => {
             <div>
                 <Button disabled={isLoading} sx={{marginTop: 5}} variant="contained" onClick={handleRegisterButton}>
                     {
-                        isLoading ? 'Wait...' : 'Sign'
+                        isLoading ? 'Wait...' : 'Edit customer'
                     }
                 </Button>
             </div>
             <Toasty 
                 open={openToasty} 
                 severity='success' 
-                text="The customer is signed sucessfully!"
+                text="The customer has been edited sucessfully!"
                 onClose={() => {
                     setOpenToasty(false)
                 }}
@@ -128,4 +156,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default Edit

@@ -21,20 +21,24 @@ const CustomerCard = ({
     email, 
     avatar,
     className,
-    onRemoveCustomer
+    onRemoveCustomer,
+    onEditCustomer
 }) => {
 
   const [open, setOpen] = useState(false)
 
-  const handleToggleOpen = () => {
+  const handleRemoveCustomer = () => {
     setOpen(!open)
   }
 
   const handleConfirmModal = (id) => {
     onRemoveCustomer(id)
-    handleToggleOpen()
+    handleRemoveCustomer()
   }
 
+  const handleEditCustomer = (id) => {
+    onEditCustomer(id)
+  }
   return (
   <>
     <Card className={className} sx={{ maxWidth: 345, marginTop: 5 }}>
@@ -50,10 +54,10 @@ const CustomerCard = ({
       />
       
       <CardActions disableSpacing>
-        <IconButton sx={{ marginRight: 1}} aria-label="add to favorites">
+        <IconButton onClick={() => handleEditCustomer(id)} sx={{ marginRight: 1}} aria-label="add to favorites">
           <EditIcon  />
         </IconButton>
-        <IconButton onClick={() => handleToggleOpen()} aria-label="share">
+        <IconButton onClick={() => handleRemoveCustomer()} aria-label="share">
           <DeleteIcon />
         </IconButton>
         
@@ -62,8 +66,9 @@ const CustomerCard = ({
     </Card>
     <ModalConfirm 
       open={open} 
-      onClose={handleToggleOpen}
+      onClose={handleRemoveCustomer}
       onConfirm={() => handleConfirmModal(id)}
+      
       title="Deseja realmente excluir o cliente?"
       message="O cliente será excluído do banco de dados."
     />
