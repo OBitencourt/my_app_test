@@ -4,12 +4,12 @@ import axios from 'axios'
 
 import {
     Grid,
-    Paper,
+    
 } from '@mui/material'
 import CustomersCard from '../components/CustomersCard'
 
 
-import { makeStyles, styled } from '@mui/styles';
+import { makeStyles, } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,7 +35,7 @@ const Customers = () => {
 
                 console.log(customers)
             })
-    }, [])
+    }, )
 
 
     // XS = EXTRA SMALL
