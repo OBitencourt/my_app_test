@@ -5,8 +5,11 @@ import App from './App';
 
 import './index.css'
 
+import  {AuthProvider}  from './state/auth';
+
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { lime, purple, deepPurple } from '@mui/material/colors';
+import { purple, deepPurple } from '@mui/material/colors';
 
 
 const theme = createTheme({
@@ -21,7 +24,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </ThemeProvider> 
   </React.StrictMode>
 );

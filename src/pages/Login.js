@@ -4,7 +4,12 @@ import Typography from '@mui/material/Typography';
 
 import { useState } from 'react'
 
+import { useHistory } from 'react-router-dom';
+
+import useAuth from '../state/auth'
+
 const Login = () => {
+    const history = useHistory()
 
 
     const [form, setForm] = useState({
@@ -22,8 +27,22 @@ const Login = () => {
         })
     }
 
+    const {user, setUser} = useAuth()
+    const [isLoading, setIsLoading] = useState(false)
+
     const handleFormSubmit = () => {
-        console.log(form)
+        setIsLoading(true)
+        setTimeout(() => {
+            
+            setUser({
+                logged: true,
+                email: form.email
+            })
+
+            setIsLoading(false)
+            history.push('/')
+            window.location.reload()
+        }, 4000)
     }
 
     return (
@@ -54,7 +73,17 @@ const Login = () => {
                 >
                 </TextField>
             </div>
-            <Button sx={{ marginTop: 5}} variant="contained" onClick={handleFormSubmit}>Entrar</Button>
+            
+            <Button 
+                sx={{ marginTop: 5}} 
+                variant="contained" 
+                onClick={handleFormSubmit}
+            >
+                {
+                    isLoading ? 'Wait...' : 'Login'
+                }
+            </Button>
+            
         </>
     )
 }

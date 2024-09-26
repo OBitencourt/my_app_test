@@ -10,15 +10,17 @@ import CustomersRegister from "./pages/customers/Register"
 import CustomersEdit from "./pages/customers/Edit"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
+import AuthProvider from './state/auth'
 
 import TemplateDefault from './templates/Default'
 import TemplatePage from './templates/Page'
 import TemplateClean from './templates/Clean'
 
 const App = () => {
+
   return (
-    
-    <Router>
+    <>
+      <Router>
         <Switch>
           <Route path="/login">
             <TemplateClean title="Acesso Restrito" Component={Login} />
@@ -35,10 +37,12 @@ const App = () => {
             </Route>
             <Route path="/">
               <TemplatePage title="Home" Component={Home} />
+                         
             </Route>
           </TemplateDefault>
         </Switch>
-    </Router>
+      </Router>
+    </>
 
   )
 }
